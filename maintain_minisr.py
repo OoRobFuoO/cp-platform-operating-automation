@@ -106,15 +106,10 @@ def delta_alter_configs(adminClient, resources):
 
 def MaintainISR(adminClient, args):
 
-    if len(args) == 0:
-        what = "all"
-    else:
-        what = args[0]
-
-    totalBroker = int(args[1])
-    rf = int(args[2])
-    healthyMinISR = int(args[3])
-    degradedMinISR = int(args[4])
+    totalBroker = int(args[0])
+    rf = int(args[1])
+    healthyMinISR = int(args[2])
+    degradedMinISR = int(args[3])
 
     md = adminClient.list_topics(timeout=30)
 
@@ -172,7 +167,7 @@ def MaintainISR(adminClient, args):
         delta_alter_configs(adminClient, resources)
 
 if __name__ == '__main__':
-    if len(sys.argv) < 6:
+    if len(sys.argv) < 5:
         sys.stderr.write('Usage: %s <Number of total brokers> <Replication Factor> <Healthy min.insync.replicas> <Degraded min.insync.replicas>\n\n' % sys.argv[0])
         sys.exit(1)
 
