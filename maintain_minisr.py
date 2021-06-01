@@ -17,19 +17,12 @@
 
 from confluent_kafka.admin import AdminClient, NewTopic, NewPartitions, ConfigResource, ConfigSource
 from confluent_kafka import KafkaException
+import json
 import sys
 import threading
 import logging
 
 logging.basicConfig()
-
-def print_config(config, depth):
-    print('%40s = %-50s  [%s,is:read-only=%r,default=%r,sensitive=%r,synonym=%r,synonyms=%s]' %
-          ((' ' * depth) + config.name, config.value, ConfigSource(config.source),
-           config.is_read_only, config.is_default,
-           config.is_sensitive, config.is_synonym,
-           ["%s:%s" % (x.name, ConfigSource(x.source))
-            for x in iter(config.synonyms.values())]))
 
 def delta_alter_configs(adminClient, resources):
     """
@@ -179,14 +172,18 @@ def MaintainISR(adminClient, args):
         delta_alter_configs(adminClient, resources)
 
 if __name__ == '__main__':
-    if len(sys.argv) < 7:
-        sys.stderr.write('Usage: %s <bootstrap-brokers> <Number of total brokers> <replication factor> <healthy min.insync.replicas> <degraded min.insync.replicas>\n\n' % sys.argv[0])
+    if len(sys.argv) < 6:
+        sys.stderr.write('Usage: %s <Number of total brokers> <Replication Factor> <Healthy min.insync.replicas> <Degraded min.insync.replicas>\n\n' % sys.argv[0])
         sys.exit(1)
 
-    broker = sys.argv[1]
-    args = sys.argv[2:]
+    with open('conf.json', 'r') as admin_config:
+        conf=admin_config.read()
+
+    confObj = json.loads(conf)
+
+    args = sys.argv[1:]
 
     # Create Admin client
-    adminClient = AdminClient({'bootstrap.servers': broker})
+    adminClient = AdminClient(confObj)
 
     MaintainISR(adminClient, args)
