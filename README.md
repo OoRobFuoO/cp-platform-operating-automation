@@ -1,6 +1,22 @@
 # cp-platform-operating-automation
 Automation script to support Confluent Platform operation
 
+## Requirements
+
+* Python 2.7 or above
+* [Confluent Python Client](https://github.com/confluentinc/confluent-kafka-python)
+
+## Starter guide
+
+This project contains various assistance scripts (currently only 1) to automate Confluent Platform operation.
+
+To use the script, update the `conf.json` with the appropriate client properties to connect to the target cluster. The default example only contains the following, which may work with most of the local cluster setup for trial and testing purpose:
+```
+{
+  "bootstrap.servers": "localhost:9092"
+}
+```
+
 ## maintain_minisr.py
 
 This script will help platform team to maintain topic min.insync.replica setting to support operating the platform at degraded mode by identify how many replicas do not have sufficient ISR due to too many brokers are offline.
@@ -9,6 +25,5 @@ This script will attempt to recover the topic min.insync.replica to a pre-define
 
 ### Improvements
 
-* Support defining broker properties from a file. Currently only support bootstrap-server
 * Support inclusion and exclusion topic
 * Support force apply mode
