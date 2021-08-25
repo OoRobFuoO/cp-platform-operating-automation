@@ -31,10 +31,10 @@ python3 maintain_minisr.py 4 4 3 2
 
 ## Parameters explanation
 
-1st parameter - Total number of brokers in the cluster when healthy
-2nd parameter - Default replication factor
-3rd parameter - min.insync.replica when the cluster is healthy
-4th parameter - min.insync.replica when the cluster is at degraded state
+* 1st parameter - Total number of brokers in the cluster when healthy
+* 2nd parameter - Default replication factor
+* 3rd parameter - min.insync.replica when the cluster is healthy
+* 4th parameter - min.insync.replica when the cluster is at degraded state
 
 ### Improvements
 
