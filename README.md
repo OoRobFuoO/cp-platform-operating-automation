@@ -24,9 +24,18 @@ This script will help platform team to maintain topic min.insync.replica (min.IS
 This script will attempt to recover the topic min.insync.replica to a pre-defined health value from degraded mode when all the broker is online and replicas has sufficient ISR.
 
 The example will instruct the script to reduce topic min.ISR to 2 when there at degraded state to maintain availablity to producer and recover it back to 3 when all the brokers are online and all topic replicas are back to a healthy status.
+
 ```
 python3 maintain_minisr.py 4 4 3 2
 ```
+
+## Parameters explanation
+
+1st parameter - Total number of brokers in the cluster when healthy
+2nd parameter - Default replication factor
+3rd parameter - min.insync.replica when the cluster is healthy
+4th parameter - min.insync.replica when the cluster is at degraded state
+
 ### Improvements
 
 * Support inclusion and exclusion topic
