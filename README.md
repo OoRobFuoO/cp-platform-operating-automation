@@ -40,3 +40,17 @@ python3 maintain_minisr.py 4 4 3 2
 
 * Support inclusion and exclusion topic
 * Support force apply mode
+
+
+## applyReplicaPlacement.py
+
+Example
+```
+python3 applyReplicaPlacement.py {path to replica placement strategy json} 3
+```
+
+## Parameters explanation
+
+* 1st parameter - path to replica placement strategy json
+* 2nd parameter - Default min.insync.replica setting
+* 3rd parameter (optional) - --cluster-internal-only, apply the change to internal topic only (Topic name starts with _)
